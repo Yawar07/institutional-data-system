@@ -1,55 +1,165 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card">
-    <h2>Welcome to Institutional Data Management System</h2>
-    <p>Select a module from the navigation menu to manage institutional data.</p>
+<!-- Welcome Section -->
+<div class="page-header">
+    <h2>Welcome to the Dashboard</h2>
+    <p>Access and manage all institutional data modules from this centralized portal. Select a module below to view, add, or update records.</p>
 </div>
 
-<div class="dashboard-grid">
-    <a href="{{ url_for('nss_enrollment') }}" class="dashboard-card">
-        <h3>📋 NSS Enrollment</h3>
-        <p>Manage NSS student enrollment data</p>
+<!-- Statistics Overview -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-value">2,847</div>
+        <div class="stat-label">Total Students</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">👨‍🏫</div>
+        <div class="stat-value">234</div>
+        <div class="stat-label">Faculty Members</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div class="stat-value">48</div>
+        <div class="stat-label">Active Programmes</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">🏢</div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Departments</div>
+    </div>
+</div>
+
+<!-- Data Management Modules -->
+<h2 style="color: var(--text-primary); font-size: 1.25rem; margin-bottom: 1rem; font-weight: 600;">Data Management Modules</h2>
+<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Select a module to access detailed records and management tools</p>
+
+<div class="modules-grid">
+    <a href="{{ url_for('nss_enrollment') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">📋</div>
+            <div class="module-title">NSS Enrollment</div>
+        </div>
+        <div class="module-description">
+            Manage National Service Scheme student enrollment data and track volunteer participation.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('hostels') }}" class="dashboard-card">
-        <h3>🏠 Hostels</h3>
-        <p>Manage hostel information and capacity</p>
+
+    <a href="{{ url_for('hostels') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">🏠</div>
+            <div class="module-title">Hostel Management</div>
+        </div>
+        <div class="module-description">
+            Manage hostel information, capacity allocation, and accommodation details.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('departments') }}" class="dashboard-card">
-        <h3>🏢 Departments</h3>
-        <p>Manage department and center details</p>
+
+    <a href="{{ url_for('departments') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">🏢</div>
+            <div class="module-title">Departments</div>
+        </div>
+        <div class="module-description">
+            Maintain comprehensive records of academic departments and research centers.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('programmes') }}" class="dashboard-card">
-        <h3>📚 Programmes</h3>
-        <p>Manage academic programme offerings</p>
+
+    <a href="{{ url_for('programmes') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">📚</div>
+            <div class="module-title">Academic Programmes</div>
+        </div>
+        <div class="module-description">
+            Manage academic programme offerings including UG, PG, and research programmes.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('student_enrollment') }}" class="dashboard-card">
-        <h3>👨‍🎓 Student Enrollment</h3>
-        <p>Track student enrollment by category</p>
+
+    <a href="{{ url_for('student_enrollment') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">👨‍🎓</div>
+            <div class="module-title">Student Enrollment</div>
+        </div>
+        <div class="module-description">
+            Track student enrollment statistics by category, programme, and demographics.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('examination_results') }}" class="dashboard-card">
-        <h3>📊 Examination Results</h3>
-        <p>Record and manage exam results</p>
+
+    <a href="{{ url_for('examination_results') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">📊</div>
+            <div class="module-title">Examination Results</div>
+        </div>
+        <div class="module-description">
+            Record and analyze examination results and academic performance metrics.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('placement') }}" class="dashboard-card">
-        <h3>💼 Placement</h3>
-        <p>Track student placement statistics</p>
+
+    <a href="{{ url_for('placement') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">💼</div>
+            <div class="module-title">Placement Records</div>
+        </div>
+        <div class="module-description">
+            Track student placement statistics, employer relationships, and career outcomes.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('staff_info') }}" class="dashboard-card">
-        <h3>👥 Staff Information</h3>
-        <p>Manage teaching and non-teaching staff</p>
+
+    <a href="{{ url_for('staff_info') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">👥</div>
+            <div class="module-title">Staff Information</div>
+        </div>
+        <div class="module-description">
+            Manage comprehensive records for teaching and non-teaching staff members.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
-    
-    <a href="{{ url_for('scholarships') }}" class="dashboard-card">
-        <h3>🎓 Scholarships</h3>
-        <p>Track scholarship distribution</p>
+
+    <a href="{{ url_for('scholarships') }}" class="module-card">
+        <div class="module-header">
+            <div class="module-icon">🎓</div>
+            <div class="module-title">Scholarships</div>
+        </div>
+        <div class="module-description">
+            Track scholarship distribution, financial aid allocation, and assistance programmes.
+        </div>
+        <div class="module-footer">
+            <span class="module-status">● Active</span>
+            <span class="module-arrow">→</span>
+        </div>
     </a>
 </div>
 {% endblock %}
