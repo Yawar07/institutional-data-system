@@ -10,38 +10,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Professional Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">🎓</div>
+                <div class="header-title">
+                    <h1>Institutional Data Management System</h1>
+                    <p>University Administration Portal</p>
+                </div>
+            </div>
+            <div class="user-section">
+                <div class="user-avatar">👤</div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <header>
-            <h1>🎓 Institutional Data Management System</h1>
-            <nav>
-                <a href="{{ url_for('index') }}">🏠 Home</a>
-                <a href="{{ url_for('nss_enrollment') }}">NSS Enrollment</a>
-                <a href="{{ url_for('hostels') }}">Hostels</a>
-                <a href="{{ url_for('departments') }}">Departments</a>
-                <a href="{{ url_for('programmes') }}">Programmes</a>
-                <a href="{{ url_for('student_enrollment') }}">Student Enrollment</a>
-                <a href="{{ url_for('examination_results') }}">Examination Results</a>
-                <a href="{{ url_for('placement') }}">Placement</a>
-                <a href="{{ url_for('staff_info') }}">Staff Information</a>
-                <a href="{{ url_for('scholarships') }}">Scholarships</a>
-            </nav>
-        </header>
-        <main>
-            <!-- Flash Messages -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <div class="flash-messages">
-                        {% for category, message in messages %}
-                            <div class="flash flash-{{ category }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
-            
-            {% block content %}{% endblock %}
-        </main>
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb">
+            <a href="{{ url_for('index') }}">Home</a> / {% block breadcrumb %}Dashboard{% endblock %}
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2024 Institutional Data Management System. All rights reserved.</p>
+        </div>
     </div>
 </body>
 </html>
