@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Programmes{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Programme Information</h2>
+    
+    <form method="POST" id="mainForm">
+        <input type="hidden" name="action" value="add" id="formAction">
+        <input type="hidden" name="index" value="" id="formIndex">
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="sno">S.No:</label>
+                <input type="text" id="sno" name="sno" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="level">Level:</label>
+                <select id="level" name="level" required>
+                    <option value="">Select Level</option>
+                    <option value="UG">UG</option>
+                    <option value="PG">PG</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="PhD">PhD</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="program_name">Program Name:</label>
+                <input type="text" id="program_name" name="program_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="year_of_start">Year of Start:</label>
+                <input type="text" id="year_of_start" name="year_of_start" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="course_duration">Course Duration:</label>
+                <input type="text" id="course_duration" name="course_duration" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="entry_qualification">Entry Qualification:</label>
+                <input type="text" id="entry_qualification" name="entry_qualification" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="medium_instruction">Medium of Instruction:</label>
+                <input type="text" id="medium_instruction" name="medium_instruction" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="sanctioned_intake">Sanctioned Intake:</label>
+                <input type="number" id="sanctioned_intake" name="sanctioned_intake" required>
+            </div>
+        </div>
+        
+        <h3 style="margin-top: 1.5rem; color: var(--primary);">Approved Intake by Category</h3>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="approved_intake_ews">EWS:</label>
+                <input type="number" id="approved_intake_ews" name="approved_intake_ews" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="approved_intake_sc">SC:</label>
+                <input type="number" id="approved_intake_sc" name="approved_intake_sc" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="approved_intake_st">ST:</label>
+                <input type="number" id="approved_intake_st" name="approved_intake_st" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="approved_intake_obc">OBC:</label>
+                <input type="number" id="approved_intake_obc" name="approved_intake_obc" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="approved_intake_general">General:</label>
+                <input type="number" id="approved_intake_general" name="approved_intake_general" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="approved_intake_total">Total:</label>
+                <input type="number" id="approved_intake_total" name="approved_intake_total" required>
+            </div>
+        </div>
+        
+        <button type="submit" id="submitBtn">Add Programme</button>
+        <button type="button" id="cancelBtn" onclick="cancelEdit()" style="display: none; margin-left: 1rem; background: #6b7280;">Cancel</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Programme Records</h2>
+    
+    {% if records %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Level</th>
+                    <th>Program Name</th>
+                    <th>Year of Start</th>
+                    <th>Duration</th>
+                    <th>Entry Qualification</th>
+                    <th>Medium</th>
+                    <th>Sanctioned Intake</th>
+                    <th>EWS</th>
+                    <th>SC</th>
+                    <th>ST</th>
+                    <th>OBC</th>
+                    <th>General</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.sno }}</td>
+                    <td>{{ record.level }}</td>
+                    <td>{{ record.program_name }}</td>
+                    <td>{{ record.year_of_start }}</td>
+                    <td>{{ record.course_duration }}</td>
+                    <td>{{ record.entry_qualification }}</td>
+                    <td>{{ record.medium_instruction }}</td>
+                    <td>{{ record.sanctioned_intake }}</td>
+                    <td>{{ record.approved_intake_ews }}</td>
+                    <td>{{ record.approved_intake_sc }}</td>
+                    <td>{{ record.approved_intake_st }}</td>
+                    <td>{{ record.approved_intake_obc }}</td>
+                    <td>{{ record.approved_intake_general }}</td>
+                    <td>{{ record.approved_intake_total }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick='editRecord({{ loop.index0 }}, "{{ record.sno }}", "{{ record.level }}", "{{ record.program_name }}", "{{ record.year_of_start }}", "{{ record.course_duration }}", "{{ record.entry_qualification }}", "{{ record.medium_instruction }}", "{{ record.sanctioned_intake }}", "{{ record.approved_intake_ews }}", "{{ record.approved_intake_sc }}", "{{ record.approved_intake_st }}", "{{ record.approved_intake_obc }}", "{{ record.approved_intake_general }}", "{{ record.approved_intake_total }}")'>Edit</button>
+                            <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="index" value="{{ loop.index0 }}">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No programme records found. Add your first record above!</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function editRecord(index, sno, level, program_name, year_of_start, course_duration, entry_qualification, medium_instruction, sanctioned_intake, approved_intake_ews, approved_intake_sc, approved_intake_st, approved_intake_obc, approved_intake_general, approved_intake_total) {
+    document.getElementById('formAction').value = 'edit';
+    document.getElementById('formIndex').value = index;
+    document.getElementById('sno').value = sno;
+    document.getElementById('level').value = level;
+    document.getElementById('program_name').value = program_name;
+    document.getElementById('year_of_start').value = year_of_start;
+    document.getElementById('course_duration').value = course_duration;
+    document.getElementById('entry_qualification').value = entry_qualification;
+    document.getElementById('medium_instruction').value = medium_instruction;
+    document.getElementById('sanctioned_intake').value = sanctioned_intake;
+    document.getElementById('approved_intake_ews').value = approved_intake_ews;
+    document.getElementById('approved_intake_sc').value = approved_intake_sc;
+    document.getElementById('approved_intake_st').value = approved_intake_st;
+    document.getElementById('approved_intake_obc').value = approved_intake_obc;
+    document.getElementById('approved_intake_general').value = approved_intake_general;
+    document.getElementById('approved_intake_total').value = approved_intake_total;
+    document.getElementById('submitBtn').textContent = 'Update Programme';
+    document.getElementById('cancelBtn').style.display = 'inline-block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelEdit() {
+    document.getElementById('formAction').value = 'add';
+    document.getElementById('formIndex').value = '';
+    document.getElementById('mainForm').reset();
+    document.getElementById('submitBtn').textContent = 'Add Programme';
+    document.getElementById('cancelBtn').style.display = 'none';
+}
+</script>
+{% endblock %}

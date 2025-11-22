@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Hostels{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Hostel Information</h2>
+    
+    <form method="POST" id="mainForm">
+        <input type="hidden" name="action" value="add" id="formAction">
+        <input type="hidden" name="index" value="" id="formIndex">
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="sno">S.No:</label>
+                <input type="text" id="sno" name="sno" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Hostel Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select id="type" name="type" required>
+                    <option value="">Select Type</option>
+                    <option value="Boys">Boys</option>
+                    <option value="Girls">Girls</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="capacity">Capacity:</label>
+                <input type="number" id="capacity" name="capacity" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="students_residing">Students Residing:</label>
+                <input type="number" id="students_residing" name="students_residing" required>
+            </div>
+        </div>
+        
+        <button type="submit" id="submitBtn">Add Hostel</button>
+        <button type="button" id="cancelBtn" onclick="cancelEdit()" style="display: none; margin-left: 1rem; background: #6b7280;">Cancel</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Hostel Records</h2>
+    
+    {% if records %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                    <th>Students Residing</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.sno }}</td>
+                    <td>{{ record.name }}</td>
+                    <td>{{ record.type }}</td>
+                    <td>{{ record.capacity }}</td>
+                    <td>{{ record.students_residing }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editRecord({{ loop.index0 }}, {{ record|tojson }})">Edit</button>
+                            <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="index" value="{{ loop.index0 }}">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No hostel records found. Add your first record above!</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function editRecord(index, record) {
+    document.getElementById('formAction').value = 'edit';
+    document.getElementById('formIndex').value = index;
+    document.getElementById('sno').value = record.sno;
+    document.getElementById('name').value = record.name;
+    document.getElementById('type').value = record.type;
+    document.getElementById('capacity').value = record.capacity;
+    document.getElementById('students_residing').value = record.students_residing;
+    document.getElementById('submitBtn').textContent = 'Update Hostel';
+    document.getElementById('cancelBtn').style.display = 'inline-block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelEdit() {
+    document.getElementById('formAction').value = 'add';
+    document.getElementById('formIndex').value = '';
+    document.getElementById('mainForm').reset();
+    document.getElementById('submitBtn').textContent = 'Add Hostel';
+    document.getElementById('cancelBtn').style.display = 'none';
+}
+</script>
+{% endblock %}

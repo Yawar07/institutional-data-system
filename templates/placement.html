@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Placement{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Placement Details</h2>
+    
+    <form method="POST" id="mainForm">
+        <input type="hidden" name="action" value="add" id="formAction">
+        <input type="hidden" name="index" value="" id="formIndex">
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="male_placed">Male Students Placed:</label>
+                <input type="number" id="male_placed" name="male_placed" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="female_placed">Female Students Placed:</label>
+                <input type="number" id="female_placed" name="female_placed" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="total_placed">Total Students Placed:</label>
+                <input type="number" id="total_placed" name="total_placed" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="median_salary">Median Annual Salary for Placed Students:</label>
+                <input type="number" id="median_salary" name="median_salary" step="0.01" required>
+            </div>
+        </div>
+        
+        <button type="submit" id="submitBtn">Add Placement Record</button>
+        <button type="button" id="cancelBtn" onclick="cancelEdit()" style="display: none; margin-left: 1rem; background: #6b7280;">Cancel</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Placement Records</h2>
+    
+    {% if records %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Male Placed</th>
+                    <th>Female Placed</th>
+                    <th>Total Placed</th>
+                    <th>Median Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.male_placed }}</td>
+                    <td>{{ record.female_placed }}</td>
+                    <td>{{ record.total_placed }}</td>
+                    <td>₹{{ record.median_salary }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editRecord({{ loop.index0 }}, {{ record|tojson }})">Edit</button>
+                            <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="index" value="{{ loop.index0 }}">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No placement records found. Add your first record above!</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function editRecord(index, record) {
+    document.getElementById('formAction').value = 'edit';
+    document.getElementById('formIndex').value = index;
+    document.getElementById('male_placed').value = record.male_placed;
+    document.getElementById('female_placed').value = record.female_placed;
+    document.getElementById('total_placed').value = record.total_placed;
+    document.getElementById('median_salary').value = record.median_salary;
+    document.getElementById('submitBtn').textContent = 'Update Placement Record';
+    document.getElementById('cancelBtn').style.display = 'inline-block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelEdit() {
+    document.getElementById('formAction').value = 'add';
+    document.getElementById('formIndex').value = '';
+    document.getElementById('mainForm').reset();
+    document.getElementById('submitBtn').textContent = 'Add Placement Record';
+    document.getElementById('cancelBtn').style.display = 'none';
+}
+</script>
+{% endblock %}
