@@ -51,7 +51,44 @@ def update_record(filename, index, new_data, fieldnames):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Calculate real statistics from CSV files
+    stats = {
+        'total_students': 0,
+        'faculty_members': 0,
+        'active_programmes': 0,
+        'departments': 0
+    }
+    
+    # Count students from student_enrollment.csv
+    enrollment_records = read_csv('student_enrollment.csv')
+    for record in enrollment_records:
+        try:
+            stats['total_students'] += int(record.get('total_male', 0) or 0)
+            stats['total_students'] += int(record.get('total_female', 0) or 0)
+            stats['total_students'] += int(record.get('total_transgender', 0) or 0)
+        except (ValueError, KeyError):
+            pass
+    
+    # Count faculty from staff_info.csv (only teaching staff)
+    staff_records = read_csv('staff_info.csv')
+    for record in staff_records:
+        if record.get('staff_type', '').lower() == 'teaching':
+            try:
+                stats['faculty_members'] += int(record.get('total_male', 0) or 0)
+                stats['faculty_members'] += int(record.get('total_female', 0) or 0)
+                stats['faculty_members'] += int(record.get('total_transgender', 0) or 0)
+            except (ValueError, KeyError):
+                pass
+    
+    # Count active programmes
+    programme_records = read_csv('programmes.csv')
+    stats['active_programmes'] = len(programme_records)
+    
+    # Count departments
+    department_records = read_csv('departments.csv')
+    stats['departments'] = len(department_records)
+    
+    return render_template('index.html', stats=stats)
 
 # NSS Enrollment Routes
 @app.route('/nss_enrollment', methods=['GET', 'POST'])

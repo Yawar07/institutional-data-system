@@ -11,22 +11,22 @@
 <div class="stats-grid">
     <div class="stat-card">
         <div class="stat-icon">👥</div>
-        <div class="stat-value">2,847</div>
+        <div class="stat-value">{{ "{:,}".format(stats.total_students|default(0)) }}</div>
         <div class="stat-label">Total Students</div>
     </div>
     <div class="stat-card">
         <div class="stat-icon">👨‍🏫</div>
-        <div class="stat-value">234</div>
+        <div class="stat-value">{{ "{:,}".format(stats.faculty_members|default(0)) }}</div>
         <div class="stat-label">Faculty Members</div>
     </div>
     <div class="stat-card">
         <div class="stat-icon">📚</div>
-        <div class="stat-value">48</div>
+        <div class="stat-value">{{ "{:,}".format(stats.active_programmes|default(0)) }}</div>
         <div class="stat-label">Active Programmes</div>
     </div>
     <div class="stat-card">
         <div class="stat-icon">🏢</div>
-        <div class="stat-value">12</div>
+        <div class="stat-value">{{ "{:,}".format(stats.departments|default(0)) }}</div>
         <div class="stat-label">Departments</div>
     </div>
 </div>
