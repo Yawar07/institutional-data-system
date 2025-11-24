@@ -15,7 +15,8 @@ def read_csv(filename):
         return []
     with open(filepath, 'r', newline='', encoding='utf-8') as file:
         reader = csv.DictReader(file)
-        return list(reader)
+        # Strip whitespace from all values
+        return [{key.strip(): value.strip() for key, value in row.items()} for row in reader]
 
 def write_csv(filename, data, fieldnames):
     filepath = os.path.join(app.config['DATA_FOLDER'], filename)
@@ -215,20 +216,20 @@ def programmes():
         action = request.form.get('action', 'add')
         
         data = {
-            'sno': request.form['sno'],
-            'level': request.form['level'],
-            'program_name': request.form['program_name'],
-            'year_of_start': request.form['year_of_start'],
-            'course_duration': request.form['course_duration'],
-            'entry_qualification': request.form['entry_qualification'],
-            'medium_instruction': request.form['medium_instruction'],
-            'sanctioned_intake': request.form['sanctioned_intake'],
-            'approved_intake_ews': request.form['approved_intake_ews'],
-            'approved_intake_sc': request.form['approved_intake_sc'],
-            'approved_intake_st': request.form['approved_intake_st'],
-            'approved_intake_obc': request.form['approved_intake_obc'],
-            'approved_intake_general': request.form['approved_intake_general'],
-            'approved_intake_total': request.form['approved_intake_total']
+            'sno': request.form.get('sno', '').strip(),
+            'level': request.form.get('level', '').strip(),
+            'program_name': request.form.get('program_name', '').strip(),
+            'year_of_start': request.form.get('year_of_start', '').strip(),
+            'course_duration': request.form.get('course_duration', '').strip(),
+            'entry_qualification': request.form.get('entry_qualification', '').strip(),
+            'medium_instruction': request.form.get('medium_instruction', '').strip(),
+            'sanctioned_intake': request.form.get('sanctioned_intake', '').strip(),
+            'approved_intake_ews': request.form.get('approved_intake_ews', '').strip(),
+            'approved_intake_sc': request.form.get('approved_intake_sc', '').strip(),
+            'approved_intake_st': request.form.get('approved_intake_st', '').strip(),
+            'approved_intake_obc': request.form.get('approved_intake_obc', '').strip(),
+            'approved_intake_general': request.form.get('approved_intake_general', '').strip(),
+            'approved_intake_total': request.form.get('approved_intake_total', '').strip()
         }
         
         if action == 'add':
@@ -260,26 +261,26 @@ def student_enrollment():
         action = request.form.get('action', 'add')
         
         data = {
-            'sno': request.form['sno'],
-            'category': request.form['category'],
-            'general_male': request.form['general_male'],
-            'general_female': request.form['general_female'],
-            'general_transgender': request.form['general_transgender'],
-            'ews_male': request.form['ews_male'],
-            'ews_female': request.form['ews_female'],
-            'ews_transgender': request.form['ews_transgender'],
-            'sc_male': request.form['sc_male'],
-            'sc_female': request.form['sc_female'],
-            'sc_transgender': request.form['sc_transgender'],
-            'st_male': request.form['st_male'],
-            'st_female': request.form['st_female'],
-            'st_transgender': request.form['st_transgender'],
-            'obc_male': request.form['obc_male'],
-            'obc_female': request.form['obc_female'],
-            'obc_transgender': request.form['obc_transgender'],
-            'total_male': request.form['total_male'],
-            'total_female': request.form['total_female'],
-            'total_transgender': request.form['total_transgender']
+            'sno': request.form.get('sno', '').strip(),
+            'category': request.form.get('category', '').strip(),
+            'general_male': request.form.get('general_male', '0').strip(),
+            'general_female': request.form.get('general_female', '0').strip(),
+            'general_transgender': request.form.get('general_transgender', '0').strip(),
+            'ews_male': request.form.get('ews_male', '0').strip(),
+            'ews_female': request.form.get('ews_female', '0').strip(),
+            'ews_transgender': request.form.get('ews_transgender', '0').strip(),
+            'sc_male': request.form.get('sc_male', '0').strip(),
+            'sc_female': request.form.get('sc_female', '0').strip(),
+            'sc_transgender': request.form.get('sc_transgender', '0').strip(),
+            'st_male': request.form.get('st_male', '0').strip(),
+            'st_female': request.form.get('st_female', '0').strip(),
+            'st_transgender': request.form.get('st_transgender', '0').strip(),
+            'obc_male': request.form.get('obc_male', '0').strip(),
+            'obc_female': request.form.get('obc_female', '0').strip(),
+            'obc_transgender': request.form.get('obc_transgender', '0').strip(),
+            'total_male': request.form.get('total_male', '0').strip(),
+            'total_female': request.form.get('total_female', '0').strip(),
+            'total_transgender': request.form.get('total_transgender', '0').strip()
         }
         
         if action == 'add':
@@ -314,29 +315,29 @@ def examination_results():
         action = request.form.get('action', 'add')
         
         data = {
-            'sno': request.form['sno'],
-            'prog': request.form['prog'],
-            'year': request.form['year'],
-            'month': request.form['month'],
-            'category': request.form['category'],
-            'general_male': request.form['general_male'],
-            'general_female': request.form['general_female'],
-            'general_transgender': request.form['general_transgender'],
-            'ews_male': request.form['ews_male'],
-            'ews_female': request.form['ews_female'],
-            'ews_transgender': request.form['ews_transgender'],
-            'sc_male': request.form['sc_male'],
-            'sc_female': request.form['sc_female'],
-            'sc_transgender': request.form['sc_transgender'],
-            'st_male': request.form['st_male'],
-            'st_female': request.form['st_female'],
-            'st_transgender': request.form['st_transgender'],
-            'obc_male': request.form['obc_male'],
-            'obc_female': request.form['obc_female'],
-            'obc_transgender': request.form['obc_transgender'],
-            'total_male': request.form['total_male'],
-            'total_female': request.form['total_female'],
-            'total_transgender': request.form['total_transgender']
+            'sno': request.form.get('sno', '').strip(),
+            'prog': request.form.get('prog', '').strip(),
+            'year': request.form.get('year', '').strip(),
+            'month': request.form.get('month', '').strip(),
+            'category': request.form.get('category', '').strip(),
+            'general_male': request.form.get('general_male', '0').strip(),
+            'general_female': request.form.get('general_female', '0').strip(),
+            'general_transgender': request.form.get('general_transgender', '0').strip(),
+            'ews_male': request.form.get('ews_male', '0').strip(),
+            'ews_female': request.form.get('ews_female', '0').strip(),
+            'ews_transgender': request.form.get('ews_transgender', '0').strip(),
+            'sc_male': request.form.get('sc_male', '0').strip(),
+            'sc_female': request.form.get('sc_female', '0').strip(),
+            'sc_transgender': request.form.get('sc_transgender', '0').strip(),
+            'st_male': request.form.get('st_male', '0').strip(),
+            'st_female': request.form.get('st_female', '0').strip(),
+            'st_transgender': request.form.get('st_transgender', '0').strip(),
+            'obc_male': request.form.get('obc_male', '0').strip(),
+            'obc_female': request.form.get('obc_female', '0').strip(),
+            'obc_transgender': request.form.get('obc_transgender', '0').strip(),
+            'total_male': request.form.get('total_male', '0').strip(),
+            'total_female': request.form.get('total_female', '0').strip(),
+            'total_transgender': request.form.get('total_transgender', '0').strip()
         }
         
         if action == 'add':
@@ -403,27 +404,27 @@ def staff_info():
         action = request.form.get('action', 'add')
         
         data = {
-            'staff_type': request.form['staff_type'],
-            'category': request.form['category'],
-            'subcategory': request.form['subcategory'],
-            'general_male': request.form['general_male'],
-            'general_female': request.form['general_female'],
-            'general_transgender': request.form['general_transgender'],
-            'ews_male': request.form['ews_male'],
-            'ews_female': request.form['ews_female'],
-            'ews_transgender': request.form['ews_transgender'],
-            'sc_male': request.form['sc_male'],
-            'sc_female': request.form['sc_female'],
-            'sc_transgender': request.form['sc_transgender'],
-            'st_male': request.form['st_male'],
-            'st_female': request.form['st_female'],
-            'st_transgender': request.form['st_transgender'],
-            'obc_male': request.form['obc_male'],
-            'obc_female': request.form['obc_female'],
-            'obc_transgender': request.form['obc_transgender'],
-            'total_male': request.form['total_male'],
-            'total_female': request.form['total_female'],
-            'total_transgender': request.form['total_transgender']
+            'staff_type': request.form.get('staff_type', '').strip(),
+            'category': request.form.get('category', '').strip(),
+            'subcategory': request.form.get('subcategory', '').strip(),
+            'general_male': request.form.get('general_male', '0').strip(),
+            'general_female': request.form.get('general_female', '0').strip(),
+            'general_transgender': request.form.get('general_transgender', '0').strip(),
+            'ews_male': request.form.get('ews_male', '0').strip(),
+            'ews_female': request.form.get('ews_female', '0').strip(),
+            'ews_transgender': request.form.get('ews_transgender', '0').strip(),
+            'sc_male': request.form.get('sc_male', '0').strip(),
+            'sc_female': request.form.get('sc_female', '0').strip(),
+            'sc_transgender': request.form.get('sc_transgender', '0').strip(),
+            'st_male': request.form.get('st_male', '0').strip(),
+            'st_female': request.form.get('st_female', '0').strip(),
+            'st_transgender': request.form.get('st_transgender', '0').strip(),
+            'obc_male': request.form.get('obc_male', '0').strip(),
+            'obc_female': request.form.get('obc_female', '0').strip(),
+            'obc_transgender': request.form.get('obc_transgender', '0').strip(),
+            'total_male': request.form.get('total_male', '0').strip(),
+            'total_female': request.form.get('total_female', '0').strip(),
+            'total_transgender': request.form.get('total_transgender', '0').strip()
         }
         
         if action == 'add':
@@ -458,26 +459,26 @@ def scholarships():
         action = request.form.get('action', 'add')
         
         data = {
-            'scholarship_scheme': request.form['scholarship_scheme'],
-            'category': request.form['category'],
-            'general_male': request.form['general_male'],
-            'general_female': request.form['general_female'],
-            'general_transgender': request.form['general_transgender'],
-            'ews_male': request.form['ews_male'],
-            'ews_female': request.form['ews_female'],
-            'ews_transgender': request.form['ews_transgender'],
-            'sc_male': request.form['sc_male'],
-            'sc_female': request.form['sc_female'],
-            'sc_transgender': request.form['sc_transgender'],
-            'st_male': request.form['st_male'],
-            'st_female': request.form['st_female'],
-            'st_transgender': request.form['st_transgender'],
-            'obc_male': request.form['obc_male'],
-            'obc_female': request.form['obc_female'],
-            'obc_transgender': request.form['obc_transgender'],
-            'total_male': request.form['total_male'],
-            'total_female': request.form['total_female'],
-            'total_transgender': request.form['total_transgender']
+            'scholarship_scheme': request.form.get('scholarship_scheme', '').strip(),
+            'category': request.form.get('category', '').strip(),
+            'general_male': request.form.get('general_male', '0').strip(),
+            'general_female': request.form.get('general_female', '0').strip(),
+            'general_transgender': request.form.get('general_transgender', '0').strip(),
+            'ews_male': request.form.get('ews_male', '0').strip(),
+            'ews_female': request.form.get('ews_female', '0').strip(),
+            'ews_transgender': request.form.get('ews_transgender', '0').strip(),
+            'sc_male': request.form.get('sc_male', '0').strip(),
+            'sc_female': request.form.get('sc_female', '0').strip(),
+            'sc_transgender': request.form.get('sc_transgender', '0').strip(),
+            'st_male': request.form.get('st_male', '0').strip(),
+            'st_female': request.form.get('st_female', '0').strip(),
+            'st_transgender': request.form.get('st_transgender', '0').strip(),
+            'obc_male': request.form.get('obc_male', '0').strip(),
+            'obc_female': request.form.get('obc_female', '0').strip(),
+            'obc_transgender': request.form.get('obc_transgender', '0').strip(),
+            'total_male': request.form.get('total_male', '0').strip(),
+            'total_female': request.form.get('total_female', '0').strip(),
+            'total_transgender': request.form.get('total_transgender', '0').strip()
         }
         
         if action == 'add':
