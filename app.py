@@ -366,10 +366,10 @@ def placement():
         action = request.form.get('action', 'add')
         
         data = {
-            'male_placed': request.form['male_placed'],
-            'female_placed': request.form['female_placed'],
-            'total_placed': request.form['total_placed'],
-            'median_salary': request.form['median_salary']
+            'male_placed': request.form.get('male_placed', '0').strip(),
+            'female_placed': request.form.get('female_placed', '0').strip(),
+            'total_placed': request.form.get('total_placed', '0').strip(),
+            'median_salary': request.form.get('median_salary', '0').strip()
         }
         
         if action == 'add':

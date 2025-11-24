@@ -63,7 +63,7 @@
                     <td>₹{{ record.median_salary }}</td>
                     <td>
                         <div class="action-buttons">
-                            <button class="btn-edit" onclick="editRecord({{ loop.index0 }}, {{ record|tojson }})">Edit</button>
+                            <button class="btn-edit" onclick='editRecord({{ loop.index0 }}, "{{ record.male_placed}}", "{{ record.female_placed }}", "{{ record.total_placed}}", "{{ record.median_salary}}")'>Edit</button>
                             <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this record?');">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="index" value="{{ loop.index0 }}">
